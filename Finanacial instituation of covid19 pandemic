@@ -1,0 +1,110 @@
+There are 3 different tables to look for starting the exploratory data analysis.
+1. CI_customer : This table has customer information data account level.
+2. CI_loan : This table has loan information data at account level.
+3. CI_economics : The table contains the macroeconomic data at montly level(2018-2020).
+
+Q1. How many distinct loan types are given by CI Capital?
+
+SELECT DISTINCT loan_type
+    FROM   CI_customer;
+===================================================================================================================================
+Q2. How many Auto loans for two-wheelers have been given?
+
+SELECT loan_type,
+       Count(*) AS Number_of_loans
+    FROM   CI_customer
+  GROUP  BY loan_type;
+===================================================================================================================================
+ Q3. Find out the customers who are less than 30 years old and have taken loans?
+ What is the age of account_no CI11?
+    
+    SELECT *
+    FROM   CI_customer
+  WHERE  age < 30; 
+===================================================================================================================================
+  Q4. How many loans have been given where credit score is less than 580 by different loan types?
+What is the minimum credit score for the Housing Loan?
+
+  SELECT loan_type,
+       Count(account_no) AS count_of_loans
+FROM   CI_loan
+WHERE  credit_score < 580
+GROUP  BY loan_type;
+
+---Another Way---
+SELECT *
+FROM   CI_loan
+WHERE  credit_score < 580
+       AND loan_type ="hl"
+ORDER  BY credit_score 
+===================================================================================================================================
+Q5. Additional Exercise:
+Likewise, Here we can check for some range as well.
+Excellent: 800 to 850
+Very Good: 740 to 799
+Good: 670 to 739
+Fair: 580 to 669
+Poor: 300 to 579
+
+select credit_score,loan_type,
+case 
+when credit_score >=800 then 'Excellent'
+when credit_score between 740 and 799 then 'Very Good'
+when credit_score between 670 and 739 then 'Good'
+when credit_score between 580 and 669 then 'Fair'
+else 'Poor'
+end as Loan1
+from CI_loan
+===================================================================================================================================
+Q6. Find out the average income of customers who have credit scores more than 700 and have been defaulted?
+What is the average annual income of the customers who have defaulted?
+
+SELECT  b.if_default,
+       Avg(annual_income) AS Average_annual_income
+FROM    CI_customer a
+       INNER JOIN CI_loan b
+               ON a.account_no = b.account_no
+WHERE   b.credit_score > 700
+  GROUP  BY b.if_default 
+===================================================================================================================================
+Q7. What is the average credit score by different marital status?
+What is the average credit score for widower?
+
+SELECT  a.marital_status,
+       Avg(b.credit_score) AS Average_credit_Score
+FROM    CI_customer a
+       INNER JOIN CI_loan b
+               ON a.account_no = b.account_no
+GROUP   BY a.marital_status; 
+===================================================================================================================================
+Q8. How many customers have more than or equal to 5 defaults by different education levels?
+How many customers who are doing Masters education have been defaulted?
+
+SELECT a.education_level,
+       Sum(b.if_default) as default_count
+FROM   CI_customer a
+       INNER JOIN CI_loan b
+              ON a.account_no = b.account_no
+  GROUP  BY a.education_level
+HAVING default_count >= 5 
+===================================================================================================================================
+Q9. What is the unemployment rate of the country in Feb 2019?
+
+SELECT
+ a.report_month,
+       a.real_gdp_in_lakh_crore,
+       a.unemp_rate,
+       Count(b.account_no) AS count_of_loans
+FROM  
+ CI_economics a
+       LEFT JOIN CI_loan b
+              ON Year(a.report_month) = Year(b.start_date)
+                 AND Month(a.report_month) = Month(b.start_date)
+GROUP  
+BY a.report_month,
+          a.real_gdp_in_lakh_crore,
+          A.unemp_rate
+ORDER 
+BY a.unemp_rate ASC
+===================================================================================================================================
+----END-----
