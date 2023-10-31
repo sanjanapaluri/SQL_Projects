@@ -1,1 +1,31 @@
-
+product_id,product_desc,category_number,category_desc,subcategory_number,subcategory_desc
+10000321,Soda_1L,31,Drinks & Bevrages,1,Soda
+10000322,Soda_500mL,31,Drinks & Bevrages,1,Soda
+10000323,Soda_200mL,31,Drinks & Bevrages,1,Soda
+10000324,Coke_1L,31,Drinks & Bevrages,2,Cold Drinks
+10000325,Coke_500mL,31,Drinks & Bevrages,2,Cold Drinks
+10000326,Pepsi_2L,31,Drinks & Bevrages,2,Cold drinks
+10000327,Pepsi_1L,31,Drinks & Bevrages,2,Cold Drinks
+10000328,Mango_1L,31,Drinks & Bevrages,3,Juices
+10000329,Orange_200mL,31,Drinks & Bevrages,3,Juices
+10000330,Orange_200mL_x6,31,Drinks & Bevrages,3,Juices
+10000331,Lemon_1L,31,Drinks & Bevrages,3,Juices
+10000332,Eggs_1x6,35,Dairy,1,Eggs
+10000333,Eggs_1x12,35,Dairy,1,Eggs
+10000334,Milk_MD_1L,35,Dairy,2,Milk
+10000335,Milk_Amul_1L,35,Dairy,2,Milk
+10000336,Milk_MD_500ml,35,Dairy,2,Milk
+10000337,Cheese_200g,35,Dairy,3,Cheese
+10000338,Cheese_200g_1x6,35,Dairy,3,Cheese
+10000339,Eggs_1x30,35,Dairy,1,Eggs
+10000340,Curd_Amul_500mL,35,Dairy,4,Curd
+10000341,Curd MD_500 mL,35,Dairy,4,Curd
+10000342,Curd_Amul_1L,35,Dairy,4,Curd
+10000343,Curd MD_1L,35,Dairy,4,Curd
+10000344,Cornflakes_500g,41,Cereals,1,Cornflakes
+10000345,Cornflakes_1Kg,41,Cereals,1,Cornflakes
+10000346,Cornflakes_almond_1Kg,41,Cereals,1,Cornflakes
+10000347,Museli_200g,41,Cereals,2,Museli
+10000348,Museli_500g,41,Cereals,2,Museli
+10000349,Museli 1 Kg,41,Cereals,2,Museli
+10000350,Chocos_200g,41,Cereals,3,Chocos
