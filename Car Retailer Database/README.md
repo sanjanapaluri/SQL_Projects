@@ -33,23 +33,26 @@ Sample Ouput:
 ```sql
 SELECT *
 FROM
- (SELECT month_name,productline,profit,Rank()
+     (SELECT month_name,productline,profit,Rank()
 OVER (
-partition
- BY month_name
-ORDER BY profit DESC) AS Ranks
+     partition
+     BY month_name
+      ORDER BY profit DESC) AS Ranks
 FROM
- (SELECT productline,Monthname(o.orderdate) AS Month_Name,
-Sum(( od.priceeach - p.buyprice ) * od.quantityordered) AS profit
+     (SELECT productline,Monthname(o.orderdate) AS Month_Name,
+     Sum(( od.priceeach - p.buyprice ) * od.quantityordered) AS profit
 FROM
- cr_orderdetails od
-JOIN cr_orders o
-ON od.ordernumber = o.ordernumber
+      cr_orderdetails od
 JOIN
-cr_products p
-ON p.productcode = od.productcode
-GROUP  BY month_name,productline) a) b
-WHERE  ranks <= 3 
+      cr_orders o
+      ON od.ordernumber = o.ordernumber
+JOIN
+      cr_products p
+          ON p.productcode = od.productcode
+GROUP  BY
+      month_name,productline) a) b
+WHERE
+      ranks <= 3 
 
 ```
 
