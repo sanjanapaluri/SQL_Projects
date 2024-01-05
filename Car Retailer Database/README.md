@@ -31,36 +31,26 @@ Sample Ouput:
 #### Submit the “productline” which is not in the top 3 lists in the month of November.
 
 ```sql
-WITH mains AS (
-    SELECT
-        FORMAT(orderDate, 'MMMM') AS month,
-        productline,
-        (priceEach - buyprice) * quantityOrdered AS profit
-    FROM
-        cr_orderdetails cod
-    JOIN
-        cr_products cp ON cod.productCode = cp.productCode
-    JOIN
-        cr_orders co ON cod.orderNumber = co.orderNumber
-)
-
-SELECT
-    *
+SELECT *
 FROM
-    (
-        SELECT
-            month,
-            productline,
-            SUM(profit) AS profit,
-            DENSE_RANK() OVER (PARTITION BY month ORDER BY SUM(profit) DESC) AS rank
-        FROM
-            mains
-        GROUP BY
-            month,
-            productline
-    ) a
-WHERE
-    rank <= 3
+ (SELECT month_name,productline,profit,Rank()
+OVER (
+partition
+ BY month_name
+ORDER BY profit DESC) AS Ranks
+FROM
+ (SELECT productline,Monthname(o.orderdate) AS Month_Name,
+Sum(( od.priceeach - p.buyprice ) * od.quantityordered) AS profit
+FROM
+ cr_orderdetails od
+JOIN cr_orders o
+ON od.ordernumber = o.ordernumber
+JOIN
+cr_products p
+ON p.productcode = od.productcode
+GROUP  BY month_name,productline) a) b
+WHERE  ranks <= 3 
+
 ```
 
 #### Question 2: Find the Month on Month growth in profit for each year.
